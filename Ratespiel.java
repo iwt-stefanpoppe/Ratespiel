@@ -5,54 +5,55 @@ public class Ratespiel {
 
     Spieler[] teilnehmer = new Spieler[3];
 
-
-    Spieler s1;
-    Spieler s2;
-    Spieler s3;
-
     public void starteSpiel() {
-        s1 = new Spieler();
-        s2 = new Spieler();
-        s3 = new Spieler();
 
-        boolean s1true = false;
-        boolean s2true = false;
-        boolean s3true = false;
+        for (int i = 0; i < teilnehmer.length; i++) {
+
+            teilnehmer[i] = new Spieler();
+            teilnehmer[i].richtig = false;
+        }
 
         int ziel = (int) (Math.random() * 10);
         System.out.println("Ich denke an eine Zahl zwischen 0 und 9");
 
-        while (!gibtEsEinenGewinner(s1true, s2true, s3true)) {
+        while (!gibtEsEinenGewinner(teilnehmer)) {
             System.out.println("Die zu ratende Zahl ist " + ziel);
 
-            s1.raten();
-            s2.raten();
-            s3.raten();
+            for (int i = 0; i < teilnehmer.length; i++) {
+                teilnehmer[i].raten();
 
-            System.out.println("Spieler eins tippt " + s1.tipp);
+                System.out.println("Spieler " + (i+1) + " tippt " + teilnehmer[i].tipp);
 
-            System.out.println("Spieler zwei tippt " + s2.tipp);
-
-            System.out.println("Spieler drei tippt " + s3.tipp);
-
-            s1true= istDerTippKorrekt(s1.tipp,ziel);
-            s2true= istDerTippKorrekt(s2.tipp,ziel);
-            s3true= istDerTippKorrekt(s3.tipp,ziel);
+                teilnehmer[i].richtig = istDerTippKorrekt(teilnehmer[i].tipp, ziel);
+            }
 
 
-            if (!gibtEsEinenGewinner(s1true, s2true, s3true)) {
+            if (!gibtEsEinenGewinner(teilnehmer)) {
                 System.out.println("Niemand hat Recht! Bitte noch einmal raten.");
             }
         }
+        int zaehler = 1;
+        for (Spieler k : teilnehmer) {
 
-        System.out.println("Ist Spieler 1 der gewinner ? "+ s1true);
-        System.out.println("Ist Spieler 2 der gewinner ? "+ s2true);
-        System.out.println("Ist Spieler 3 der gewinner ? "+ s3true);
 
+            System.out.println("Ist Spieler " + ( zaehler ) + " der Gewinner ? " + k.richtig);
+            zaehler++;
+
+        }
     }
 
-    private boolean gibtEsEinenGewinner(boolean s1true, boolean s2true, boolean s3true) {
-        return s1true || s2true || s3true;
+    private boolean gibtEsEinenGewinner(Spieler[] teilnehmer) {
+        boolean hatRecht = false;
+
+        for (Spieler aTeilnehmer : teilnehmer) {
+
+            if (aTeilnehmer.richtig) {
+                return hatRecht = true;
+            }
+
+
+        }
+        return hatRecht;
     }
 
     private boolean istDerTippKorrekt(int tipp,int ziel){
