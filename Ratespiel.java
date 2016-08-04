@@ -33,12 +33,13 @@ public class Ratespiel {
             if (!gibtEsEinenGewinner(teilnehmer)) {
                 System.out.println("Niemand hat Recht! Bitte noch einmal raten.");
             }
+            System.out.println("");
         }
         int zaehler = 1;
         for (Spieler k : teilnehmer) {
 
-
-            System.out.println("Ist Spieler " + ( zaehler ) + " der Gewinner ? " + k.richtig);
+            if(k.richtig){
+                System.out.println("Spieler " + ( zaehler ) + " hat die Zahl " + ziel + " richtig erraten!");}
             zaehler++;
 
         }
