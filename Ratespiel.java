@@ -1,9 +1,11 @@
 /**
  * Created by spoppe on 03.08.2016.
  */
+import javax.swing.*;
+
 public class Ratespiel {
 
-    Spieler[] teilnehmer = new Spieler[3];
+    Spieler[] teilnehmer = new Spieler[Integer.parseInt(JOptionPane.showInputDialog("Wie viele Spieler sollen mitspielen?"))];
 
     public void starteSpiel() {
 
@@ -50,8 +52,6 @@ public class Ratespiel {
             if (aTeilnehmer.richtig) {
                 return hatRecht = true;
             }
-
-
         }
         return hatRecht;
     }
