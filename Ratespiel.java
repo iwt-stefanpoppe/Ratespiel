@@ -5,14 +5,14 @@ import javax.swing.*;
 
 public class Ratespiel {
 
-    Spieler[] teilnehmer = new Spieler[Integer.parseInt(JOptionPane.showInputDialog("Wie viele Spieler sollen mitspielen?"))];
+    private Spieler[] teilnehmer = new Spieler[Integer.parseInt(JOptionPane.showInputDialog("Wie viele Spieler sollen mitspielen?"))];
 
     public void starteSpiel() {
 
         for (int i = 0; i < teilnehmer.length; i++) {
 
             teilnehmer[i] = new Spieler();
-            teilnehmer[i].richtig = false;
+            teilnehmer[i].setRichtig(false);
         }
 
         int ziel = (int) (Math.random() * 10);
@@ -24,9 +24,9 @@ public class Ratespiel {
             for (int i = 0; i < teilnehmer.length; i++) {
                 teilnehmer[i].raten();
 
-                System.out.println("Spieler " + (i+1) + " tippt " + teilnehmer[i].tipp);
+                System.out.println("Spieler " + (i+1) + " tippt " + teilnehmer[i].getTipp());
 
-                teilnehmer[i].richtig = istDerTippKorrekt(teilnehmer[i].tipp, ziel);
+                teilnehmer[i].setRichtig( istDerTippKorrekt(teilnehmer[i].getTipp(), ziel));
             }
 
 
@@ -38,7 +38,7 @@ public class Ratespiel {
         int zaehler = 1;
         for (Spieler k : teilnehmer) {
 
-            if(k.richtig){
+            if(k.isRichtig()){
                 System.out.println("Spieler " + ( zaehler ) + " hat die Zahl " + ziel + " richtig erraten!");}
             zaehler++;
 
@@ -47,13 +47,7 @@ public class Ratespiel {
 
     private boolean gibtEsEinenGewinner(Spieler[] teilnehmer) {
         boolean hatRecht = false;
-
-        for (Spieler aTeilnehmer : teilnehmer) {
-
-            if (aTeilnehmer.richtig) {
-                return hatRecht = true;
-            }
-        }
+        for (Spieler aTeilnehmer : teilnehmer) {if (aTeilnehmer.isRichtig()) {return hatRecht = true;}}
         return hatRecht;
     }
 
